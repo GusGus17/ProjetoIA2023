@@ -46,7 +46,7 @@ class Board:
     def get_value(self, row: int, col: int) -> str:
         """Devolve o valor na respetiva posição do tabuleiro."""
         # TODO
-        pass
+        return self.table[row][col]
 
     def adjacent_vertical_values(self, row: int, col: int) -> (str, str):
         """Devolve os valores imediatamente acima e abaixo,
@@ -156,5 +156,7 @@ if __name__ == "__main__":
     board = Board.parse_instance()
     print(board.adjacent_vertical_values(3, 3))
     print(board.adjacent_horizontal_values(3, 3))
+    print(board.adjacent_vertical_values(1, 0))
+    print(board.adjacent_horizontal_values(1, 0))
     #print(board.table)
     pass

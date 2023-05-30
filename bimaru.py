@@ -36,10 +36,11 @@ class BimaruState:
 class Board:
     """Representação interna de um tabuleiro de Bimaru."""
 
-    def __init__(self, rows, columns, hints):
+    def __init__(self, rows, columns, hints, table):
         self.rows = rows
         self.columns = columns
         self.hints = hints
+        self.table = table
         pass
 
     def get_value(self, row: int, col: int) -> str:
@@ -79,12 +80,14 @@ class Board:
         columns.pop(0)
         hint_total = stdin.readline().split()
         hints = []
+        table= [['.' for _ in range(10)] for _ in range(10)]
         for i in range(int(hint_total[0])):
             hint = stdin.readline().split()
             hint.pop(0)
+            table[int(hint[0])][int(hint[1])] = hint[2]
             hints.append(hint)
-        
-        board = Board(rows, columns, hints)
+             
+        board = Board(rows, columns, hints, table)
         
         return board
         
@@ -134,4 +137,6 @@ if __name__ == "__main__":
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
+    
+    #print(board.table)
     pass

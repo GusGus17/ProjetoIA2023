@@ -36,6 +36,12 @@ class BimaruState:
 class Board:
     """Representação interna de um tabuleiro de Bimaru."""
 
+    def __init__(self, rows, columns, hints):
+        self.rows = rows
+        self.columns = columns
+        self.hints = hints
+        pass
+
     def get_value(self, row: int, col: int) -> str:
         """Devolve o valor na respetiva posição do tabuleiro."""
         # TODO
@@ -77,11 +83,11 @@ class Board:
             hint = stdin.readline().split()
             hint.pop(0)
             hints.append(hint)
-        print(rows)
-        print(columns)
-        print(hint_total)
-        print(hints)
-        pass
+        
+        board = Board(rows, columns, hints)
+        
+        return board
+        
 
     # TODO: outros metodos da classe
 

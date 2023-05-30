@@ -52,14 +52,31 @@ class Board:
         """Devolve os valores imediatamente acima e abaixo,
         respectivamente."""
         # TODO
+        cima = "None"
+        baixo = "None"
         
-        pass
-
+        if row > 0 and self.table[row - 1][col] != ".":
+            cima = self.table[row - 1][col]
+        
+        if row < 9 and self.table[row + 1][col] != ".":
+            baixo = self.table[row + 1][col]
+        
+        return (cima, baixo)
+        
     def adjacent_horizontal_values(self, row: int, col: int) -> (str, str):
         """Devolve os valores imediatamente à esquerda e à direita,
         respectivamente."""
         # TODO
-        pass
+        esquerda = "None"
+        direita = "None"
+        
+        if col > 0 and self.table[row][col - 1] != ".":
+            esquerda = self.table[row][col - 1]
+        
+        if col < 9 and self.table[row][col + 1] != ".":
+            direita = self.table[row][col + 1]
+        
+        return (esquerda, direita)
 
     @staticmethod
     def parse_instance():
@@ -137,6 +154,7 @@ if __name__ == "__main__":
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
-    
+    print(board.adjacent_vertical_values(3, 3))
+    print(board.adjacent_horizontal_values(3, 3))
     #print(board.table)
     pass

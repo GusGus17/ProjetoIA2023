@@ -158,6 +158,6 @@ if __name__ == "__main__":
     print(board.adjacent_horizontal_values(3, 3))
     print(board.adjacent_vertical_values(1, 0))
     print(board.adjacent_horizontal_values(1, 0))
-    print("OLA TESTE BOAS")
+    print("OLA Tudo bem contigo?")
     #print(board.table)
     pass

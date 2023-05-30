@@ -17,7 +17,10 @@ from search import (
     recursive_best_first_search,
 )
 
+<<<<<<< HEAD
 from sys import stdin
+=======
+>>>>>>> 289eb9a (torre)
 
 class BimaruState:
     state_id = 0
@@ -36,6 +39,7 @@ class BimaruState:
 class Board:
     """Representação interna de um tabuleiro de Bimaru."""
 
+<<<<<<< HEAD
     def __init__(self, rows, columns, hints, table):
         self.rows = rows
         self.columns = columns
@@ -47,11 +51,18 @@ class Board:
         """Devolve o valor na respetiva posição do tabuleiro."""
         # TODO
         return self.table[row][col]
+=======
+    def get_value(self, row: int, col: int) -> str:
+        """Devolve o valor na respetiva posição do tabuleiro."""
+        # TODO
+        pass
+>>>>>>> 289eb9a (torre)
 
     def adjacent_vertical_values(self, row: int, col: int) -> (str, str):
         """Devolve os valores imediatamente acima e abaixo,
         respectivamente."""
         # TODO
+<<<<<<< HEAD
         cima = "None"
         baixo = "None"
         
@@ -63,10 +74,15 @@ class Board:
         
         return (cima, baixo)
         
+=======
+        pass
+
+>>>>>>> 289eb9a (torre)
     def adjacent_horizontal_values(self, row: int, col: int) -> (str, str):
         """Devolve os valores imediatamente à esquerda e à direita,
         respectivamente."""
         # TODO
+<<<<<<< HEAD
         esquerda = "None"
         direita = "None"
         
@@ -77,6 +93,9 @@ class Board:
             direita = self.table[row][col + 1]
         
         return (esquerda, direita)
+=======
+        pass
+>>>>>>> 289eb9a (torre)
 
     @staticmethod
     def parse_instance():
@@ -90,6 +109,7 @@ class Board:
             > line = stdin.readline().split()
         """
         # TODO
+<<<<<<< HEAD
         
         rows = stdin.readline().split()
         rows.pop(0)
@@ -108,6 +128,9 @@ class Board:
         
         return board
         
+=======
+        pass
+>>>>>>> 289eb9a (torre)
 
     # TODO: outros metodos da classe
 
@@ -153,10 +176,13 @@ if __name__ == "__main__":
     # Usar uma técnica de procura para resolver a instância,
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
+<<<<<<< HEAD
     board = Board.parse_instance()
     print(board.adjacent_vertical_values(3, 3))
     print(board.adjacent_horizontal_values(3, 3))
     print(board.adjacent_vertical_values(1, 0))
     print(board.adjacent_horizontal_values(1, 0))
     #print(board.table)
+=======
+>>>>>>> 289eb9a (torre)
     pass

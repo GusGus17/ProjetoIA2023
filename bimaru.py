@@ -21,11 +21,13 @@ from sys import stdin
 
 class BimaruState:
     state_id = 0
-
+    ship_lengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
+    
     def __init__(self, board):
         self.board = board
         self.id = BimaruState.state_id
         BimaruState.state_id += 1
+        self.ship_lengths = BimaruState.ship_lengths
 
     def __lt__(self, other):
         return self.id < other.id
@@ -116,12 +118,39 @@ class Bimaru(Problem):
     def __init__(self, board: Board):
         """O construtor especifica o estado inicial."""
         # TODO
+        self.board = board
         pass
 
     def actions(self, state: BimaruState):
         """Retorna uma lista de ações que podem ser executadas a
         partir do estado passado como argumento."""
         # TODO
+        valid_actions = []
+
+        for row in range(10):
+            for col in range(10):
+                cell_value = state.board.get_value(row, col)
+                if cell_value == '.':
+                    # Action: Mark cell as water
+                    valid_actions.append((row, col, 'w'))
+                    # Action: Mark cell as a ship segment
+                    valid_actions.append((row, col, 'ship'))
+                elif cell_value != '.' and cell_value.islower():
+                    # Action: Clear a cell
+                    valid_actions.append((row, col, 'clear'))
+
+        # Action: Place a whole battleship (if there are ships remaining)
+        if len(state.ship_lengths) > 0:
+            
+            for length in state.ship_lengths:
+                for row in range(10):
+                    for col in range(10):
+                        for direction in ['horizontal', 'vertical']:
+                            if self.is_valid_ship_placement(state, row, col, direction, length):
+                                valid_actions.append(('place_ship', row, col, direction, length))
+
+        return valid_actions
+  
         pass
 
     def result(self, state: BimaruState, action):
@@ -145,7 +174,30 @@ class Bimaru(Problem):
         pass
 
     # TODO: outros metodos da classe
+    def is_valid_ship_placement(self, state: BimaruState, row: int, col: int, direction: str, length: int):
+        """Checks if placing a ship with given length in the given position and direction is valid."""
+        if length == 1:
+            return False
+        
+        if direction == 'horizontal':
+            if length <= int(self.board.rows[row]):
+                if col + length > 10:
+                    return False
+                for c in range(col - 1, col + length):
+                    if state.board.get_value(row, c) != '.':
+                        return False
+        
+        elif direction == 'vertical':
+            if length <= int(self.board.columns[col]):    
+                if row + length > 10:
+                    return False
+                for r in range(row - 1, row + length):
+                    if state.board.get_value(r, col) != '.':
+                        return False
+        
+        return True
 
+    
 
 if __name__ == "__main__":
     # TODO:
@@ -154,10 +206,8 @@ if __name__ == "__main__":
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
-    print(board.adjacent_vertical_values(3, 3))
-    print(board.adjacent_horizontal_values(3, 3))
-    print(board.adjacent_vertical_values(1, 0))
-    print(board.adjacent_horizontal_values(1, 0))
-    print("OLA Tudo bem contigo?")
-    #print(board.table)
+    problem = Bimaru(board)
+    initial_state = BimaruState(board)
+    print(initial_state.board.get_value(3, 3))
+    #print(board.rows)
     pass

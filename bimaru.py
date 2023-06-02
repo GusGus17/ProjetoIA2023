@@ -43,7 +43,7 @@ class Board:
         self.columns = columns
         self.hints = hints
         self.table = table
-        pass
+        
 
     def get_value(self, row: int, col: int) -> str:
         """Devolve o valor na respetiva posição do tabuleiro."""
@@ -97,10 +97,10 @@ class Board:
         rows.pop(0)
         columns = stdin.readline().split()
         columns.pop(0)
-        hint_total = stdin.readline().split()
+        hint_total = stdin.readline()
         hints = []
         table= [['.' for _ in range(10)] for _ in range(10)]
-        for i in range(int(hint_total[0])):
+        for i in range(int(hint_total)):
             hint = stdin.readline().split()
             hint.pop(0)
             table[int(hint[0])][int(hint[1])] = hint[2]
@@ -133,8 +133,6 @@ class Bimaru(Problem):
                 if cell_value == '.':
                     # Action: Mark cell as water
                     valid_actions.append((row, col, 'w'))
-                    # Action: Mark cell as a ship segment
-                    valid_actions.append((row, col, 'ship'))
                 elif cell_value != '.' and cell_value.islower():
                     # Action: Clear a cell
                     valid_actions.append((row, col, 'clear'))
@@ -183,16 +181,20 @@ class Bimaru(Problem):
             if length <= int(self.board.rows[row]):
                 if col + length > 10:
                     return False
-                for c in range(col - 1, col + length):
-                    if state.board.get_value(row, c) != '.':
+                for c in range(col - 1, col + length + 1):
+                    if c  == 10:
+                        continue
+                    if state.board.get_value(row, c) != '.' or state.board.adjacent_vertical_values(row, c) != ('None', 'None'):
                         return False
         
-        elif direction == 'vertical':
+        else:
             if length <= int(self.board.columns[col]):    
                 if row + length > 10:
                     return False
                 for r in range(row - 1, row + length):
-                    if state.board.get_value(r, col) != '.':
+                    if r == 10:
+                        continue
+                    if state.board.get_value(r, col) != '.' or state.board.adjacent_horizontal_values(r, col) != ('None', 'None'):
                         return False
         
         return True
@@ -208,6 +210,7 @@ if __name__ == "__main__":
     board = Board.parse_instance()
     problem = Bimaru(board)
     initial_state = BimaruState(board)
-    print(initial_state.board.get_value(3, 3))
+    #print(initial_state.board.get_value(3, 3))
+    print(problem.actions(initial_state))
     #print(board.rows)
     pass
